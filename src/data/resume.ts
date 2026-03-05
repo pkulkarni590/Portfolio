@@ -3,7 +3,7 @@
 export const DATA = {
   name: "Prathmesh",
   role: "SDE & AI Product Management Intern",
-  description: "Johns Hopkins Grad Student. Building RAG at CounselAI. Ironman 70.3 Finisher.",
+  description: "Johns Hopkins Grad Student. Building RAG at CounselAI. Ironman 70.3 Bahrain Finisher.",
   projects: [
     {
       title: "Garmin AI Fitness Agent",
