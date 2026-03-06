@@ -1,74 +1,77 @@
 "use client";
-import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 import { DATA } from "@/data/resume";
-import { Linkedin, Instagram, Github, Trophy, Briefcase, ExternalLink } from "lucide-react";
+import { Linkedin, Instagram, Github, Briefcase, Trophy, Zap, GraduationCap } from "lucide-react";
 
-export default function Portfolio() {
-  const [activeTab, setActiveTab] = useState("experience");
+const container = {
+  hidden: { opacity: 0 },
+  show: { opacity: 1, transition: { staggerChildren: 0.1 } }
+};
 
+const item = {
+  hidden: { opacity: 0, y: 20 },
+  show: { opacity: 1, y: 0 }
+};
+
+export default function PremiumUI() {
   return (
-    <main className="max-w-2xl mx-auto py-20 px-6 font-sans">
-      {/* 1. HERO SECTION */}
-      <section className="mb-12 text-center md:text-left">
-        <motion.h1 initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="text-5xl font-black tracking-tighter text-primary">
-          {DATA.name}.
-        </motion.h1>
-        <p className="text-xl text-muted-foreground mt-4">{DATA.role}</p>
+    <main className="min-h-screen bg-[#f8fafc] text-[#0f172a] selection:bg-blue-100 p-4 md:p-12">
+      <motion.div
+        variants={container} initial="hidden" animate="show"
+        className="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-4"
+      >
+        {/* HERO CARD - Span 2 columns */}
+        <motion.div variants={item} className="md:col-span-2 p-8 rounded-3xl bg-white border border-slate-200 shadow-sm flex flex-col justify-center space-y-4">
+          <div className="flex items-center gap-2 text-blue-600 font-bold text-sm tracking-widest uppercase">
+            <GraduationCap size={16} /> Johns Hopkins University
+          </div>
+          <h1 className="text-5xl font-black tracking-tighter italic">I'm {DATA.name}.</h1>
+          <p className="text-lg text-slate-500 leading-relaxed max-w-md">
+            SDE & AI Product Management Intern at <span className="text-blue-600 font-semibold">CounselAI</span>.
+            Building the future of legal tech and fitness agents.
+          </p>
+        </motion.div>
 
-        {/* Socials Row */}
-        <div className="flex justify-center md:justify-start gap-5 mt-6 text-muted-foreground">
-          <a href={DATA.socials.linkedin} className="hover:text-primary transition-colors"><Linkedin size={22} /></a>
-          <a href={DATA.socials.instagram} className="hover:text-primary transition-colors"><Instagram size={22} /></a>
-          <a href={DATA.socials.github} className="hover:text-primary transition-colors"><Github size={22} /></a>
-        </div>
-      </section>
+        {/* SOCIAL CARD - Span 1 column */}
+        <motion.div variants={item} className="p-8 rounded-3xl bg-blue-600 text-white shadow-xl flex flex-col justify-between">
+          <Zap size={32} fill="white" />
+          <div className="space-y-4">
+            <h3 className="font-bold">Let's Connect</h3>
+            <div className="flex gap-4">
+               <a href={DATA.socials.linkedin} className="p-2 bg-white/10 rounded-full hover:bg-white/20 transition-all"><Linkedin size={20} /></a>
+               <a href={DATA.socials.instagram} className="p-2 bg-white/10 rounded-full hover:bg-white/20 transition-all"><Instagram size={20} /></a>
+               <a href={DATA.socials.github} className="p-2 bg-white/10 rounded-full hover:bg-white/20 transition-all"><Github size={20} /></a>
+            </div>
+          </div>
+        </motion.div>
 
-      {/* 2. FANCY TAB NAVIGATION */}
-      <div className="flex bg-blue-50/50 p-1 rounded-full mb-10 border border-blue-100">
-        <button
-          onClick={() => setActiveTab("experience")}
-          className={`flex-1 flex items-center justify-center gap-2 py-2 rounded-full text-sm font-bold transition-all ${activeTab === "experience" ? "bg-primary text-white shadow-lg" : "text-blue-600 hover:bg-blue-100"}`}
-        >
-          <Briefcase size={16} /> Experience
-        </button>
-        <button
-          onClick={() => setActiveTab("extra")}
-          className={`flex-1 flex items-center justify-center gap-2 py-2 rounded-full text-sm font-bold transition-all ${activeTab === "extra" ? "bg-primary text-white shadow-lg" : "text-blue-600 hover:bg-blue-100"}`}
-        >
-          <Trophy size={16} /> Extracurriculars
-        </button>
-      </div>
+        {/* EXPERIENCE CARD */}
+        <motion.div variants={item} className="p-8 rounded-3xl bg-white border border-slate-200 shadow-sm space-y-6">
+          <div className="flex items-center gap-2 font-bold text-slate-400"><Briefcase size={18}/> EXPERIENCE</div>
+          {DATA.experience.slice(0, 2).map((exp, i) => (
+            <div key={i} className="relative pl-4 border-l-2 border-blue-100">
+              <div className="absolute -left-[9px] top-1 w-4 h-4 rounded-full bg-blue-600 border-4 border-white shadow-sm" />
+              <h4 className="font-bold text-sm">{exp.company}</h4>
+              <p className="text-xs text-slate-400">{exp.role}</p>
+            </div>
+          ))}
+        </motion.div>
 
-      {/* 3. DYNAMIC CONTENT AREA */}
-      <div className="relative min-h-[400px]">
-        <AnimatePresence mode="wait">
-          {activeTab === "experience" ? (
-            <motion.div key="exp" initial={{ opacity: 0, x: -10 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: 10 }} className="space-y-6">
-              {DATA.experience.map((exp, i) => (
-                <div key={i} className="p-5 border-l-4 border-primary bg-white shadow-sm rounded-r-xl">
-                  <div className="flex justify-between font-bold">
-                    <span>{exp.company}</span>
-                    <span className="text-primary text-sm">{exp.year}</span>
-                  </div>
-                  <p className="text-muted-foreground text-sm mt-1">{exp.role}</p>
-                  <p className="mt-2 text-sm leading-relaxed">{exp.desc}</p>
-                </div>
-              ))}
-            </motion.div>
-          ) : (
-            <motion.div key="extra" initial={{ opacity: 0, x: 10 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -10 }} className="grid gap-4">
-              {DATA.extracurriculars.map((item, i) => (
-                <div key={i} className="group p-6 rounded-2xl border-2 border-dashed border-blue-200 hover:border-primary hover:bg-blue-50 transition-all">
-                  <div className="text-3xl mb-3">{item.icon}</div>
-                  <h3 className="font-bold text-lg">{item.title}</h3>
-                  <p className="text-muted-foreground text-sm mt-1 leading-relaxed">{item.detail}</p>
-                </div>
-              ))}
-            </motion.div>
-          )}
-        </AnimatePresence>
-      </div>
+        {/* IRONMAN CARD - The "Fancy" Athletic Card */}
+        <motion.div variants={item} className="md:col-span-2 p-8 rounded-3xl bg-gradient-to-br from-slate-900 to-slate-800 text-white shadow-2xl relative overflow-hidden group">
+          <div className="relative z-10 space-y-4">
+            <div className="flex items-center gap-2 font-bold text-blue-400"><Trophy size={18}/> EXTRACURRICULAR</div>
+            <h2 className="text-3xl font-black italic">IRONMAN 70.3 FINISHER</h2>
+            <p className="text-slate-400 text-sm max-w-sm">
+              Applying AI to human performance. Integrated Garmin data into a personal fitness RAG agent for recovery optimization.
+            </p>
+            <button className="px-6 py-2 bg-blue-600 rounded-full text-xs font-bold uppercase tracking-widest hover:bg-blue-500 transition-all">
+              View Stats
+            </button>
+          </div>
+          <Trophy className="absolute -bottom-10 -right-10 w-64 h-64 text-white/5 rotate-12 group-hover:rotate-0 transition-transform duration-700" />
+        </motion.div>
+      </motion.div>
     </main>
   );
 }

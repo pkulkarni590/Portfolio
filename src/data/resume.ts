@@ -2,7 +2,7 @@ export const DATA = {
   name: "Prathmesh",
   role: "SDE & AI Product Management Intern @ CounselAI",
   socials: {
-    linkedin: "https://linkedin.com/in/yourprofile",
+    linkedin: "https://www.linkedin.com/in/prathmesh-kulkarni-00531116b",
     instagram: "https://instagram.com/yourhandle",
     github: "https://github.com/yourgithub"
   },
