@@ -1,21 +1,17 @@
-// src/data/resume.ts
-
 export const DATA = {
   name: "Prathmesh",
-  role: "SDE & AI Product Management Intern",
-  description: "Johns Hopkins Grad Student. Building RAG at CounselAI. Ironman 70.3 Bahrain Finisher.",
-  projects: [
-    {
-      title: "Garmin AI Fitness Agent",
-      desc: "RAG-powered personal health oracle for Ironman training.",
-      tags: ["Python", "RAG", "Garmin API"],
-      link: "#"
-    },
-    {
-      title: "CounselAI Workflows",
-      desc: "Legal document analysis automation using parallel LLM processing.",
-      tags: ["AWS", "NLP", "Next.js"],
-      link: "#"
-    }
+  role: "SDE & AI Product Management Intern @ CounselAI",
+  socials: {
+    linkedin: "https://linkedin.com/in/yourprofile",
+    instagram: "https://instagram.com/yourhandle",
+    github: "https://github.com/yourgithub"
+  },
+  experience: [
+    { company: "CounselAI", role: "AI PM Intern", year: "2025-2026", desc: "RAG & Legal Tech." },
+    { company: "Previous Tech Corp", role: "SDE", year: "2022-2025", desc: "Full-stack development." }
+  ],
+  extracurriculars: [
+    { title: "Ironman 70.3", detail: "Finisher. Built a Garmin-integrated AI coach for recovery.", icon: "🚴" },
+    { title: "JHU EN.663.660", detail: "Lead for Game Theory & Negotiation project.", icon: "🎓" }
   ]
 };
